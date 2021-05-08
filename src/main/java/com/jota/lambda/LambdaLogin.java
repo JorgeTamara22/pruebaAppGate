@@ -2,15 +2,26 @@ package com.jota.lambda;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
+import com.jota.request.RequestLogin;
+import com.jota.response.ResponseLogin;
+import com.jota.services.UsuarioService;
 
-public class LambdaLogin implements RequestHandler<Object, String> {
+import static com.jota.constants.Constants.ERROR_AUTENTICACION;
 
-    @Override
-    public String handleRequest(Object input, Context context) {
-        context.getLogger().log("Input: " + input);
+public class LambdaLogin implements RequestHandler<RequestLogin, ResponseLogin> {
 
-        // TODO: implement your handler
-        return "Hello from Lambda!";
-    }
 
+	@Override
+	public ResponseLogin handleRequest(RequestLogin request, Context context) {
+
+		try {
+			UsuarioService login = new UsuarioService();
+
+			return login.buscarUsuario(request);
+
+		} catch (Exception e) {
+
+			return new ResponseLogin(ERROR_AUTENTICACION+e);
+		}
+	}
 }
