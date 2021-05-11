@@ -62,8 +62,9 @@ public class AddOperandoService {
 			stmt = conn.prepareStatement(sql);
 			stmt.setString(1, token.trim());
 			ResultSet rs = stmt.executeQuery();
-
+			while (rs.next()) {
 			resultado = Integer.parseInt(rs.getString(1));
+			}
 			conn.close();
 		} catch (SQLException e) {
 			try {
