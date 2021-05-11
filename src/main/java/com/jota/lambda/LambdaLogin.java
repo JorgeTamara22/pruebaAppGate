@@ -8,8 +8,10 @@ import com.jota.services.UsuarioService;
 
 import static com.jota.constants.Constants.ERROR_AUTENTICACION;
 
-public class LambdaLogin implements RequestHandler<RequestLogin, ResponseLogin> {
+import java.util.logging.Logger;
 
+public class LambdaLogin implements RequestHandler<RequestLogin, ResponseLogin> {
+	private Logger log = Logger.getLogger(LambdaLogin.class.getName());
 
 	@Override
 	public ResponseLogin handleRequest(RequestLogin request, Context context) {
@@ -20,8 +22,8 @@ public class LambdaLogin implements RequestHandler<RequestLogin, ResponseLogin> 
 			return login.buscarUsuario(request);
 
 		} catch (Exception e) {
-
-			return new ResponseLogin(ERROR_AUTENTICACION+e);
+            log.info(e.getMessage());
+			return new ResponseLogin(ERROR_AUTENTICACION);
 		}
 	}
 }

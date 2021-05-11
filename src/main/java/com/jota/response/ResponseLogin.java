@@ -1,6 +1,11 @@
 package com.jota.response;
 
-public class ResponseLogin {
+import java.io.Serializable;
+
+public class ResponseLogin implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+	
 	private String respuesta;
 
 	public ResponseLogin(String respuesta) {

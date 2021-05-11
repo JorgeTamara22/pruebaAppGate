@@ -1,6 +1,7 @@
 package com.jota.services;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -54,17 +55,15 @@ public class UsuarioService {
 		Connection conn = null;
 		try {   
 			
+			token = org.apache.commons.codec.digest.DigestUtils.sha1Hex( request.getPassword()+Math.random());
 			conn = ConexionMariaDB.connectDatabase();
 			 Statement stmt;		 
 			 stmt = conn.createStatement();	
-			 String sql = "UPDATE usuario u set u.token = '"+token
+			 String sql = "UPDATE usuario u set u.token = '"+token.trim()
 			 		+ "' where u.nombre = '"+request.getUserName()+"' "
 			 				+ "and u.password = '"+request.getPassword()+"'";
-		     int resultado = stmt.executeUpdate(sql);		     
+		   stmt.executeUpdate(sql);		     
 		   
-		     if(resultado > 0) {
-		    	 token = org.apache.commons.codec.digest.DigestUtils.sha1Hex( request.getPassword()+Math.random());
-		     }
 		     conn.close();
 	         	
 			} catch (SQLException e) {	
@@ -77,6 +76,36 @@ public class UsuarioService {
 				logger.error("Error al generar el token: "+e.getMessage());
 			}
 		return token;
+	}
+	
+	public boolean buscarToken(String token) {
+		boolean existe = false;
+		Connection conn = null;
+		try {
+			conn = ConexionMariaDB.connectDatabase();
+			PreparedStatement stmt;
+			String sql = "select count(1) FROM usuario u where u.token = ?";
+			 stmt = conn.prepareStatement(sql);	
+			 stmt.setString(1, token.trim());
+		     ResultSet rs = stmt.executeQuery();
+		     while ( rs.next() ) {
+		    	 System.out.println("resul"+rs.getString(1));
+	             int  resultado = Integer.parseInt(rs.getString(1));
+	             if(resultado>0) {	                
+	               existe = true;
+	             }
+	         }
+	         conn.close();	
+			} catch (SQLException e) {
+				 try {
+					conn.close();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				logger.error("Error al buscar el Token: "+e.getMessage());
+			}
+		return existe;
 	}
  
 }
