@@ -10,12 +10,14 @@ import static com.jota.constants.Constants.ERROR_AUTENTICACION;
 
 import java.util.logging.Logger;
 
+import org.apache.log4j.BasicConfigurator;
+
 public class LambdaLogin implements RequestHandler<RequestLogin, ResponseLogin> {
 	private Logger log = Logger.getLogger(LambdaLogin.class.getName());
 
 	@Override
 	public ResponseLogin handleRequest(RequestLogin request, Context context) {
-
+		BasicConfigurator.configure();
 		try {
 			UsuarioService login = new UsuarioService();
 

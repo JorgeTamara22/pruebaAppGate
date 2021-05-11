@@ -3,6 +3,8 @@ package com.jota.lambda;
 import java.util.Arrays;
 import java.util.logging.Logger;
 
+import org.apache.log4j.BasicConfigurator;
+
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.jota.entities.OperandoEntity;
@@ -18,6 +20,14 @@ public class LambdaAddOperando implements RequestHandler<AddOperandoRequest, Add
 
 	@Override
 	public AddOperandoResponse handleRequest(AddOperandoRequest request, Context context) {
+		
+		 AddOperandoResponse response = addOperando(request);
+		 
+		 return response;
+	}
+	
+	public AddOperandoResponse addOperando(AddOperandoRequest request) {
+		BasicConfigurator.configure();
 		AddOperandoResponse response = new AddOperandoResponse();
 		log.info("Peticion Entrante::addOperando::" + request.toString());
 		try {
