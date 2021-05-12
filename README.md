@@ -1,36 +1,25 @@
-# challengeFuegoQuasar
+# Prueba AppGate
 
-API para determinar la distancia, ubicación y contenido de un mensaje de auxilio de los satélites de la fuerza.
+API para realizar operaciones Matematicas Basicas: sumar, resta, multiplicación, división y potenciación .
 
 # Requerimientos
 
-- JDK 1.8 o superior.
+- JDK 11 o superior.
 - IDE Eclipse con plugin para AWS.
 - Una cuenta en la consola de AWS para desplegar y probar las Lambdas.
 - SoapUI para probar los servicios REST
 
 # Arquitectura de la Aplicación
 
-La aplicación es desarrollada para que funcione en la arquitectura Serverless  o  relacionada  formalmente con el término FaaS (Function as a Service), para esto me apoye en servicios propios de AWS Como lambdas, Api Gateway y S3, a continuación una imagen donde se describe mejor lo anteriormente expuesto: 
+La aplicación es desarrollada para que funcione en la arquitectura Serverless  o  relacionada  formalmente con el término FaaS (Function as a Service), para esto me apoye en servicios propios de AWS Como lambdas, Api Gateway, RDS(Maria DB) y S3, a continuación una imagen donde se describe mejor lo anteriormente expuesto: 
 
 ![Arquitectura Meli](https://github.com/JorgeTamara22/challengeFuegoQuasar/blob/master/post2.png)
 
-# Nivel 1
-
-Se crea un proyecto AWS lambda Java para implementar las fuciones GetLocation y GetMessage
-
-![Arquitectura Meli](https://github.com/JorgeTamara22/challengeFuegoQuasar/blob/master/lambdas.png)
-
-# Servicios REST
-
-Para exponer los servicios REST al cliente se utilizó Api Gateway de AWS, los cuales se describen a continuación:
-
-![Arquitectura Meli](https://github.com/JorgeTamara22/challengeFuegoQuasar/blob/master/api.png)
-
-## topsecret (Nivel 2)
-[https://u5fhoiwlve.execute-api.us-east-2.amazonaws.com/prod/topsecret](https://u5fhoiwlve.execute-api.us-east-2.amazonaws.com/prod/topsecret)
-
+El API REST cuenta con tres servicios los cuales se describen a continuación:
+## Login
+Este metodo tiene como funcionalidad crear una session y da como respuesta un token que debe ser utilizado para realizar las otras funcionalidades, el token se actualiza cada vez que realice loguin.
 - Metodo: POST
+- endpoint: 
 - Request: Este metodo tiene como entrada una lista de satelites con la siguiente estructura en JSON:
 
 { "satelites": [ { "name": "kenobi", "distance": 485.7, "message": ["este", "", "", "mensaje", ""] }, { "name": "skywalker", "distance": 266.1, "message": ["", "es", "", "", "secreto"] }, { "name": "sato", "distance": 600.5, "message": ["este", "", "un", "", ""] } ] }
