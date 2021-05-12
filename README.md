@@ -25,7 +25,7 @@ Este metodo tiene como funcionalidad crear una session y da como respuesta un to
   "userName": "+++++",
   "password": "++++"
 }
-Para efectos de prueba se crearon dos usuarios en la base de datos cuyos datos se muestran a caontinuacion:
+- Para efectos de prueba se crearon dos usuarios en la base de datos cuyos datos se muestran a continuacion:
 {
   "userName": "PRUEBA",
   "password": "PRUEBA"
