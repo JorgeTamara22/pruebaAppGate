@@ -36,43 +36,49 @@ y
   "password": "123456
 }
 - Response: La respuesta del metodo tiene la siguiente estructura:
-{
-   "position":    {
-      "x": -100.00688339798238,
-      "y": 75.51770663789418
-   },
-   "message": "este es un mensaje secreto"
-}
+{"respuesta": "token: +++++++++"}
 
-## topsecret (Nivel 3)
-[https://u5fhoiwlve.execute-api.us-east-2.amazonaws.com/prod/topsecret-split?satellite_name=XXXX](https://u5fhoiwlve.execute-api.us-east-2.amazonaws.com/prod/topsecret-split?satellite_name=XXXX)
+## addOperando
+Este metodo se utiliza para ingresar los operandos de la operacion matematica a realizar, para el consumo de este metodo es necesario el token generado en el metodo anterior. En el caso de que todo este bien se devuelve un "OK", en caso contrario el listado de mensajes de error correspondiente.
 - Metodo: POST
-- Request: Este metodo tiene como entrada un objeto satelites y recibe un parametro llamado satellite_name con la siguiente estructura en JSON:
- 
-{ "distance": 600.5, "message": ["este", "", "un", "", ""] }
-
-- Response: La respuesta del metodo tiene la siguiente estructura:
+- endpoint: https://54varwzxy8.execute-api.us-east-1.amazonaws.com/dev/addoperando
+- Request: 
 {
-   "position":    {
-      "x": -100.00688339798238,
-      "y": 75.51770663789418
-   },
-   "message": "este es un mensaje secreto"
+  "token": "+++++",
+  "operando": 12
+}
+- Response:
+{
+   "messages": ["Operacion Realizada Existosamente"],
+   "value": "OK"
 }
 
-## topsecret (Nivel 3)
-[https://u5fhoiwlve.execute-api.us-east-2.amazonaws.com/prod/topsecret-split](https://u5fhoiwlve.execute-api.us-east-2.amazonaws.com/prod/topsecret-split)
-- Metodo: GET
-- Request: No tiene entrada
-- Response: La respuesta del metodo tiene la siguiente estructura:
+## addOperacion
+Este metodo se utiliza para ingresar la operacion matematica que se le aplicará a los operandos ingresados en el metodo anterior, para el consumo de este metodo es necesario el token generado en el metodo login. para poder realizar una operacion es necesario ingresar al menos dos operandos, Los simbolos de operaciones aceptados por el metodo son los siguientes: "+","-","*","x","/","÷","^", de lo contrario se recibira un mensaje de error, el resultado de la operacion se enviará en la etiqueta value del response.
+- Metodo: POST
+- endpoint: https://54varwzxy8.execute-api.us-east-1.amazonaws.com/dev/addoperando
+- Request: 
 {
-   "position":    {
-      "x": -100.00688339798238,
-      "y": 75.51770663789418
-   },
-   "message": "este es un mensaje secreto"
+  "token": "++++++",
+  "operacion": "*"
 }
+- Response:
+{
+   "messages": ["Operacion Realizada Exitosamente"],
+   "value": 0
+}
+
+## Flujo del servicio
+Cliente ------------------> login ----------------------> servidor
+Cliente <------------------ token <---------------------- servidor
+Cliente ------------------> operando(2) ----------------------> servidor
+Cliente <------------------ ok<---------------------- servidor
+Cliente ------------------> operando(4) ----------------------> servidor
+Cliente <------------------ ok<---------------------- servidor
+Cliente ------------------> operacion(*) ----------------------> servidor
+Cliente <------------------ 8 <---------------------- servidor
 
 # Test
+Para ejecutar las pruebas se implemento clases planas en java desde un main.
 
-Para ejecutar los tests correr el programa con JUnit Test
+
