@@ -19,11 +19,22 @@ El API REST cuenta con tres servicios los cuales se describen a continuación:
 ## Login
 Este metodo tiene como funcionalidad crear una session y da como respuesta un token que debe ser utilizado para realizar las otras funcionalidades, el token se actualiza cada vez que realice loguin.
 - Metodo: POST
-- endpoint: 
-- Request: Este metodo tiene como entrada una lista de satelites con la siguiente estructura en JSON:
-
-{ "satelites": [ { "name": "kenobi", "distance": 485.7, "message": ["este", "", "", "mensaje", ""] }, { "name": "skywalker", "distance": 266.1, "message": ["", "es", "", "", "secreto"] }, { "name": "sato", "distance": 600.5, "message": ["este", "", "un", "", ""] } ] }
-
+- endpoint: https://54varwzxy8.execute-api.us-east-1.amazonaws.com/dev/login
+- Request: 
+{
+  "userName": "+++++",
+  "password": "++++"
+}
+Para efectos de prueba se crearon dos usuarios en la base de datos cuyos datos se muestran a caontinuacion:
+{
+  "userName": "PRUEBA",
+  "password": "PRUEBA"
+}
+y
+{
+  "userName": "appgate",
+  "password": "123456
+}
 - Response: La respuesta del metodo tiene la siguiente estructura:
 {
    "position":    {
